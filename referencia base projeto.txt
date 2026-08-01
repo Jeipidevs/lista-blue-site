@@ -1,0 +1,350 @@
+Excelente! Acho que esse projeto pode realmente virar uma ferramenta diferenciada para o mercado imobiliário do litoral.
+
+Eu faria como se fosse um software comercial, chamado por exemplo:
+
+Radar Litoral
+
+Objetivo: acompanhar automaticamente todo o mercado imobiliário de Capão da Canoa e Xangri-Lá.
+
+Módulo 1 – Pesquisa
+
+Pesquisar por:
+
+Condomínio
+Bairro
+Cidade
+Tipo (Casa, Terreno, Apartamento)
+
+Exemplo:
+
+Blue
+
+↓
+
+Retorna todos os anúncios encontrados.
+
+Módulo 2 – Banco de Dados
+
+Todos os anúncios ficam armazenados.
+
+Assim você poderá pesquisar:
+
+"Quais casas estavam à venda no Blue em janeiro?"
+
+ou
+
+"Quanto custava esta casa há seis meses?"
+
+Módulo 3 – Histórico
+
+Exemplo:
+
+Casa 214
+
+15/01 → R$ 2.950.000
+
+20/03 → R$ 2.790.000
+
+12/06 → R$ 2.650.000
+
+Módulo 4 – Dashboard
+
+Você abre e vê:
+
+BLUE
+
+38 casas
+
+Preço médio:
+R$ 2.890.000
+
+Preço médio m²:
+R$ 10.240
+
+Maior preço:
+R$ 9.200.000
+
+Menor preço:
+R$ 1.580.000
+
+Novos anúncios:
+4
+
+Reduções de preço:
+7
+Módulo 5 – Mapa
+
+Todos os imóveis aparecem em um mapa.
+
+Clique →
+
+abre o anúncio.
+
+Módulo 6 – Alertas
+
+Todos os dias às 8h
+
+BLUE
+
++2 imóveis novos
+
+-1 vendido
+
+3 reduções de preço
+Módulo 7 – IA
+
+Você pergunta:
+
+"Quais são as 10 melhores oportunidades do Blue?"
+
+A IA responde automaticamente.
+
+Ou:
+
+"Compare Blue x Sense."
+
+Ou:
+
+"Quais imóveis estão abaixo da média do condomínio?"
+
+Tecnologias
+
+Eu utilizaria:
+
+Frontend: Streamlit (na primeira versão)
+Backend: Python
+Banco de dados: PostgreSQL (ou SQLite na fase inicial)
+Automação: Playwright
+Processamento: Pandas
+Excel: OpenPyXL
+O que eu sugiro
+
+Em vez de criar tudo de uma vez, vamos desenvolver em etapas:
+
+✅ Fase 1 (MVP)
+Pesquisa por condomínio
+Coleta dos anúncios
+Exportação para Excel
+✅ Fase 2
+Banco de dados
+Histórico de preços
+Deduplicação
+✅ Fase 3
+Dashboard
+Estatísticas
+Comparativos
+✅ Fase 4
+Alertas automáticos
+IA para análise de mercado
+Minha proposta de trabalho com você
+
+Podemos construir isso inteiramente aqui no ChatGPT.
+
+Eu posso gerar:
+
+toda a estrutura do projeto;
+cada arquivo Python;
+os scrapers;
+a interface;
+o banco de dados;
+os testes;
+a documentação;
+o instalador para Windows.
+
+No final, você terá um sistema próprio, que poderá evoluir continuamente e adaptar ao seu negócio, sem depender de soluções prontas.
+
+ok
+
+Perfeito. Acho que esse projeto tem potencial para se tornar uma ferramenta exclusiva da sua operação.
+
+O projeto
+
+Nome: Radar Litoral
+
+Versão: 1.0
+
+Objetivo: pesquisar automaticamente anúncios de imóveis em Capão da Canoa e Xangri-Lá e gerar planilhas consolidadas.
+
+Funcionalidades da V1
+Pesquisa
+
+Pesquisar por:
+
+Condomínio
+Cidade
+Bairro
+
+Exemplo:
+
+Blue
+
+↓
+
+Pesquisa automaticamente em:
+
+ZAP Imóveis
+Viva Real
+OLX
+ImóvelWeb
+Chaves na Mão
+RE/MAX
+Auxiliadora Predial
+Condomínios Xangri-Lá
+Capão Sul
+Resultado
+Valor	Área	Dorm	Suítes	Imobiliária	Portal	Link
+
+↓
+
+Botão
+
+Exportar Excel
+
+V2
+
+Banco de dados.
+
+Todos os anúncios ficam gravados.
+
+Você poderá pesquisar:
+
+Casas vendidas
+
+Casas retiradas do mercado
+
+Histórico de preços
+
+V3
+
+Dashboard.
+
+Gráficos.
+
+Mapa.
+
+Comparativos.
+
+V4
+
+IA.
+
+Você pergunta:
+
+"Qual condomínio teve maior queda de preços nos últimos 90 dias?"
+
+Resposta instantânea.
+
+Organização do projeto
+
+Eu criaria um repositório GitHub com esta estrutura:
+
+radar-litoral/
+│
+├── README.md
+├── requirements.txt
+├── app.py
+├── config.py
+├── .env.example
+│
+├── scrapers/
+│   ├── base.py
+│   ├── zap.py
+│   ├── vivareal.py
+│   ├── olx.py
+│   ├── remax.py
+│   ├── capaosul.py
+│   └── ...
+│
+├── services/
+│   ├── collector.py
+│   ├── exporter.py
+│   └── parser.py
+│
+├── models/
+│   └── property.py
+│
+├── database/
+│
+├── exports/
+│
+└── tests/
+Minha sugestão para começarmos
+
+Começaria pelo ZAP Imóveis, por ser uma das principais fontes e porque a mesma base pode ser reutilizada para outros portais.
+
+Depois adicionaríamos os demais portais um a um, testando cada integração antes de seguir para a próxima.
+
+Assim teremos uma aplicação funcional rapidamente, em vez de tentar integrar tudo de uma vez.
+
+ok
+
+Perfeito. Vamos fazer isso como um projeto de software de verdade.
+
+Fase 1 – Fundação (Semana 1)
+
+Vamos entregar uma versão que já seja utilizável.
+
+Entrega 1
+✅ Projeto Python organizado
+✅ Interface em Streamlit
+✅ Campo de pesquisa
+✅ Botão "Pesquisar"
+✅ Exportação para Excel
+✅ Scraper do ZAP Imóveis
+
+No final dessa fase, você já conseguirá digitar:
+
+Blue
+
+e obter um arquivo:
+
+Blue.xlsx
+
+Fase 2 – Expansão
+
+Adicionar:
+
+Viva Real
+OLX
+Chaves na Mão
+ImóvelWeb
+Fase 3
+
+Adicionar:
+
+RE/MAX
+Auxiliadora
+Capão Sul
+Condomínios Xangri-Lá
+Fase 4
+
+Adicionar:
+
+Histórico
+Banco de dados
+Dashboard
+O que vamos usar
+Python 3.12
+Playwright (mais confiável que Selenium para sites modernos)
+Pandas
+OpenPyXL
+Streamlit
+SQLite (inicialmente)
+Como vamos trabalhar
+
+Em vez de tentar gerar milhares de linhas de código em uma única conversa, vamos construir o projeto em módulos:
+
+Estrutura do projeto
+Interface
+Scraper do ZAP
+Exportação para Excel
+Testes
+Próximo portal
+
+Essa abordagem facilita testes, manutenção e evolução.
+
+Minha recomendação
+
+Eu colocaria o projeto em um repositório GitHub desde o primeiro dia. Assim você terá controle de versões, poderá fazer backups e, no futuro, até implantar o sistema em um servidor para acessar pelo navegador de qualquer lugar.
+
+Com esse planejamento, em poucas iterações você terá uma ferramenta realmente útil para acompanhar o mercado imobiliário do litoral norte do RS.
