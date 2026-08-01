@@ -1,43 +1,4 @@
-export interface PriceHistoryEntry {
-  date: string;
-  price: number;
-}
-
-export interface PortalLink {
-  name: string;
-  url: string;
-  iconName: 'zap' | 'vivareal' | 'olx' | 'remax' | 'imovelweb' | 'chavesnamao' | 'auxiliadora' | 'capaosul' | 'casasnolitoral' | 'litoralclass' | 'melhordapraia' | 'mercadolivre';
-  badgeColor?: string;
-}
-
-export interface Property {
-  id: string;
-  code: string;
-  condoSlug: string;
-  condoName: string;
-  title: string;
-  price: number;
-  originalPrice?: number;
-  pricePerM2: number;
-  area: number;
-  lotArea: number;
-  bedrooms: number;
-  suites: number;
-  bathrooms: number;
-  garages: number;
-  isLakefront: boolean;
-  isFurnished: boolean;
-  isNew: boolean;
-  hasPool: boolean;
-  status: 'disponivel' | 'preco_reduzido' | 'lancamento' | 'reservada';
-  description: string;
-  features: string[];
-  images: string[];
-  portalLinks: PortalLink[];
-  priceHistory: PriceHistoryEntry[];
-}
-
-export const BLUE_PROPERTIES: Property[] = [
+[
   {
     "id": "blue-101",
     "code": "CASA 10661",
@@ -91,6 +52,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1480000,
+    "originalPrice": null,
     "pricePerM2": 6981,
     "area": 212,
     "lotArea": 362,
@@ -136,6 +98,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1890000,
+    "originalPrice": null,
     "pricePerM2": 12600,
     "area": 150,
     "lotArea": 300,
@@ -227,6 +190,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1990000,
+    "originalPrice": null,
     "pricePerM2": 9387,
     "area": 212,
     "lotArea": 362,
@@ -272,6 +236,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Capão Sul Imóveis",
     "price": 2425000,
+    "originalPrice": null,
     "pricePerM2": 8981,
     "area": 270,
     "lotArea": 420,
@@ -371,6 +336,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 5 dormitórios para venda, Xangri",
     "price": 6300000,
+    "originalPrice": null,
     "pricePerM2": 15869,
     "area": 397,
     "lotArea": 547,
@@ -416,6 +382,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Apartamento 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 2180000,
+    "originalPrice": null,
     "pricePerM2": 13374,
     "area": 163,
     "lotArea": 313,
@@ -515,6 +482,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 3 dormitórios para venda, Noiva do Mar em Xangri",
     "price": 1050000,
+    "originalPrice": null,
     "pricePerM2": 3182,
     "area": 330,
     "lotArea": 480,
@@ -560,6 +528,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Capão Sul Imóveis",
     "price": 3200000,
+    "originalPrice": null,
     "pricePerM2": 9357,
     "area": 342,
     "lotArea": 492,
@@ -665,6 +634,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio com 4 quartos e 264m² à venda em Xangri",
     "price": 3345000,
+    "originalPrice": null,
     "pricePerM2": 12670,
     "area": 264,
     "lotArea": 414,
@@ -716,6 +686,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Imóvel não encontrado",
     "price": 3460000,
+    "originalPrice": null,
     "pricePerM2": 9153,
     "area": 378,
     "lotArea": 528,
@@ -815,6 +786,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Amare",
     "title": "Capão Sul Imóveis",
     "price": 650000,
+    "originalPrice": null,
     "pricePerM2": 1617,
     "area": 402,
     "lotArea": 552,
@@ -868,6 +840,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Amare",
     "title": "Capão Sul Imóveis",
     "price": 650000,
+    "originalPrice": null,
     "pricePerM2": 1091,
     "area": 596,
     "lotArea": 746,
@@ -975,6 +948,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Sunset",
     "title": "Apartamento 2 dormitórios para venda, Centro [ 10220 ]",
     "price": 750000,
+    "originalPrice": null,
     "pricePerM2": 1712,
     "area": 438,
     "lotArea": 588,
@@ -1020,6 +994,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Sunset",
     "title": "Capão Sul Imóveis",
     "price": 4150000,
+    "originalPrice": null,
     "pricePerM2": 9222,
     "area": 450,
     "lotArea": 600,
@@ -1127,6 +1102,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Ventura",
     "title": "Capão Sul Imóveis",
     "price": 590000,
+    "originalPrice": null,
     "pricePerM2": 1245,
     "area": 474,
     "lotArea": 624,
@@ -1180,6 +1156,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Sea Coast",
     "title": "Capão Sul Imóveis",
     "price": 5900000,
+    "originalPrice": null,
     "pricePerM2": 12140,
     "area": 486,
     "lotArea": 636,
@@ -1287,6 +1264,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Celebration",
     "title": "Capão Sul Imóveis",
     "price": 2650000,
+    "originalPrice": null,
     "pricePerM2": 5354,
     "area": 495,
     "lotArea": 645,
@@ -1340,6 +1318,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Celebration",
     "title": "Capão Sul Imóveis",
     "price": 679000,
+    "originalPrice": null,
     "pricePerM2": 9841,
     "area": 69,
     "lotArea": 219,
@@ -1447,6 +1426,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Zen",
     "title": "Capão Sul Imóveis",
     "price": 1320000,
+    "originalPrice": null,
     "pricePerM2": 9167,
     "area": 144,
     "lotArea": 294,
@@ -1493,15 +1473,4 @@ export const BLUE_PROPERTIES: Property[] = [
       }
     ]
   }
-];
-
-export const CONDOMINIUMS_LIST = [
-  { slug: "todos", name: "Todos os Condomínios" },
-  { slug: "blue", name: "Condomínio Blue" },
-  { slug: "amare", name: "Condomínio Amare" },
-  { slug: "sunset", name: "Condomínio Sunset" },
-  { slug: "ventura", name: "Condomínio Ventura" },
-  { slug: "sea-coast", name: "Condomínio Sea Coast" },
-  { slug: "celebration", name: "Condomínio Celebration" },
-  { slug: "zen", name: "Condomínio Zen" },
-];
+]
