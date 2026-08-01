@@ -1,0 +1,67 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Condominium {
+  id          String     @id @default(uuid())
+  slug        String     @unique
+  name        String
+  location    String
+  description String?
+  properties  Property[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Property {
+  id              String         @id
+  code            String
+  condominiumId   String
+  condominium     Condominium    @relation(fields: [condominiumId], references: [id], onDelete: Cascade)
+  title           String
+  price           Int
+  originalPrice   Int?
+  pricePerM2      Int
+  area            Int
+  lotArea         Int
+  bedrooms        Int
+  suites          Int
+  bathrooms       Int
+  garages         Int
+  isLakefront     Boolean        @default(false)
+  isFurnished     Boolean        @default(false)
+  isNew           Boolean        @default(false)
+  hasPool         Boolean        @default(false)
+  status          String         @default("disponivel")
+  description     String
+  featuresJson    String
+  imagesJson      String
+  portalLinksJson String
+  priceHistory    PriceHistory[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model PriceHistory {
+  id         String   @id @default(uuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  date       String
+  price      Int
+  createdAt  DateTime @default(now())
+}
+
+model ScrapeJob {
+  id         String   @id @default(uuid())
+  condoSlug  String
+  totalFound Int
+  newFound   Int
+  priceDrops Int
+  status     String
+  ranAt      DateTime @default(now())
+}

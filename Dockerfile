@@ -7,7 +7,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
+COPY prisma ./prisma
 RUN npm ci
+RUN npx prisma generate
 
 # Builder stage
 FROM base AS builder
@@ -16,6 +18,11 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DATABASE_URL="file:./dev.db"
+
+RUN npx prisma generate
+RUN npx prisma db push
+RUN node prisma/seed.js
 RUN npm run build
 
 # Production Runner stage for EasyPanel VPS
@@ -24,13 +31,15 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DATABASE_URL="file:./dev.db"
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
 
-# Set permissions for Next.js standalone server
+# Set permissions for Next.js standalone server and database file
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 

@@ -1,43 +1,4 @@
-export interface PriceHistoryEntry {
-  date: string;
-  price: number;
-}
-
-export interface PortalLink {
-  name: string;
-  url: string;
-  iconName: 'zap' | 'vivareal' | 'olx' | 'remax' | 'imovelweb' | 'chavesnamao' | 'auxiliadora' | 'capaosul';
-  badgeColor?: string;
-}
-
-export interface Property {
-  id: string;
-  code: string;
-  condoSlug: string;
-  condoName: string;
-  title: string;
-  price: number;
-  originalPrice?: number;
-  pricePerM2: number;
-  area: number;
-  lotArea: number;
-  bedrooms: number;
-  suites: number;
-  bathrooms: number;
-  garages: number;
-  isLakefront: boolean;
-  isFurnished: boolean;
-  isNew: boolean;
-  hasPool: boolean;
-  status: 'disponivel' | 'preco_reduzido' | 'lancamento' | 'reservada';
-  description: string;
-  features: string[];
-  images: string[];
-  portalLinks: PortalLink[];
-  priceHistory: PriceHistoryEntry[];
-}
-
-export const BLUE_PROPERTIES: Property[] = [
+[
   {
     "id": "blue-101",
     "code": "CASA 10661",
@@ -91,6 +52,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1480000,
+    "originalPrice": null,
     "pricePerM2": 6981,
     "area": 212,
     "lotArea": 372,
@@ -136,6 +98,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1890000,
+    "originalPrice": null,
     "pricePerM2": 12600,
     "area": 150,
     "lotArea": 310,
@@ -227,6 +190,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 1990000,
+    "originalPrice": null,
     "pricePerM2": 9387,
     "area": 212,
     "lotArea": 372,
@@ -272,6 +236,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Capão Sul Imóveis",
     "price": 1454000,
+    "originalPrice": null,
     "pricePerM2": 5102,
     "area": 285,
     "lotArea": 445,
@@ -369,6 +334,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Casa em Condomínio 5 dormitórios para venda, Xangri",
     "price": 6300000,
+    "originalPrice": null,
     "pricePerM2": 15869,
     "area": 397,
     "lotArea": 557,
@@ -414,6 +380,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Blue",
     "title": "Apartamento 4 dormitórios para venda, Cond. Blue em Xangri",
     "price": 2180000,
+    "originalPrice": null,
     "pricePerM2": 13374,
     "area": 163,
     "lotArea": 323,
@@ -511,6 +478,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Amare",
     "title": "Capão Sul Imóveis",
     "price": 699000,
+    "originalPrice": null,
     "pricePerM2": 1942,
     "area": 360,
     "lotArea": 520,
@@ -562,6 +530,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Amare",
     "title": "Capão Sul Imóveis",
     "price": 957000,
+    "originalPrice": null,
     "pricePerM2": 2552,
     "area": 375,
     "lotArea": 535,
@@ -665,6 +634,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Sunset",
     "title": "Apartamento 2 dormitórios para venda, Centro [ 10220 ]",
     "price": 750000,
+    "originalPrice": null,
     "pricePerM2": 1852,
     "area": 405,
     "lotArea": 565,
@@ -710,6 +680,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Ventura",
     "title": "Capão Sul Imóveis",
     "price": 1290000,
+    "originalPrice": null,
     "pricePerM2": 3071,
     "area": 420,
     "lotArea": 580,
@@ -813,6 +784,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Celebration",
     "title": "Capão Sul Imóveis",
     "price": 850000,
+    "originalPrice": null,
     "pricePerM2": 1889,
     "area": 450,
     "lotArea": 610,
@@ -864,6 +836,7 @@ export const BLUE_PROPERTIES: Property[] = [
     "condoName": "Condomínio Zen",
     "title": "Capão Sul Imóveis",
     "price": 4950000,
+    "originalPrice": null,
     "pricePerM2": 10645,
     "area": 465,
     "lotArea": 625,
@@ -908,15 +881,4 @@ export const BLUE_PROPERTIES: Property[] = [
       }
     ]
   }
-];
-
-export const CONDOMINIUMS_LIST = [
-  { slug: "todos", name: "Todos os Condomínios" },
-  { slug: "blue", name: "Condomínio Blue" },
-  { slug: "amare", name: "Condomínio Amare" },
-  { slug: "sunset", name: "Condomínio Sunset" },
-  { slug: "ventura", name: "Condomínio Ventura" },
-  { slug: "sea-coast", name: "Condomínio Sea Coast" },
-  { slug: "celebration", name: "Condomínio Celebration" },
-  { slug: "zen", name: "Condomínio Zen" },
-];
+]

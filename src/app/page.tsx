@@ -2,29 +2,49 @@
 
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
+import CondoSelector from "@/components/CondoSelector";
 import MarketStats from "@/components/MarketStats";
 import FilterBar from "@/components/FilterBar";
+import ExcelExportButton from "@/components/ExcelExportButton";
+import RadarAIModule from "@/components/RadarAIModule";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyModal from "@/components/PropertyModal";
 import Footer from "@/components/Footer";
 import { BLUE_PROPERTIES, Property } from "@/data/properties";
-import { Home, Sparkles, SlidersHorizontal, MessageCircle, Waves, CheckCircle } from "lucide-react";
+import { Home, Sparkles, Building2, CheckCircle, RefreshCw } from "lucide-react";
 
 export default function HomePage() {
+  const [selectedCondo, setSelectedCondo] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("todos");
   const [minSuites, setMinSuites] = useState(0);
   const [sortBy, setSortBy] = useState("relevancia");
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
-  // Filter and Sort Logic
+  // Count houses per condo
+  const condoCounts = useMemo(() => {
+    const counts: Record<string, number> = { todos: BLUE_PROPERTIES.length };
+    BLUE_PROPERTIES.forEach((p) => {
+      const slug = p.condoSlug || "blue";
+      counts[slug] = (counts[slug] || 0) + 1;
+    });
+    return counts;
+  }, []);
+
+  // Filter and Sort Properties
   const filteredProperties = useMemo(() => {
     return BLUE_PROPERTIES.filter((prop) => {
+      // Condo Filter
+      if (selectedCondo !== "todos" && prop.condoSlug !== selectedCondo) {
+        return false;
+      }
+
       // Search term filter
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch =
         prop.title.toLowerCase().includes(searchLower) ||
         prop.code.toLowerCase().includes(searchLower) ||
+        (prop.condoName && prop.condoName.toLowerCase().includes(searchLower)) ||
         prop.description.toLowerCase().includes(searchLower) ||
         prop.features.some((f) => f.toLowerCase().includes(searchLower));
 
@@ -42,13 +62,14 @@ export default function HomePage() {
     }).sort((a, b) => {
       if (sortBy === "menor_preco") return a.price - b.price;
       if (sortBy === "maior_preco") return b.price - a.price;
-      if (sortBy === "maior_area") return b.area - a.area;
+      if (sortBy === "maior_area") return a.area - b.area;
       if (sortBy === "menor_m2") return a.pricePerM2 - b.pricePerM2;
-      return 0; // relevancia (default)
+      return 0;
     });
-  }, [searchTerm, selectedTag, minSuites, sortBy]);
+  }, [selectedCondo, searchTerm, selectedTag, minSuites, sortBy]);
 
   const resetFilters = () => {
+    setSelectedCondo("todos");
     setSearchTerm("");
     setSelectedTag("todos");
     setMinSuites(0);
@@ -67,7 +88,6 @@ export default function HomePage() {
         {/* Apple Style Hero Banner */}
         <section className="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 sm:p-12 border-2 border-remax-red/40 shadow-2xl mb-8">
           
-          {/* Background Decorative Gradient & Glass Accent */}
           <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-remax-red/20 blur-3xl pointer-events-none" />
           <div className="absolute -left-20 -bottom-20 w-96 h-96 rounded-full bg-remax-navy/40 blur-3xl pointer-events-none" />
 
@@ -75,40 +95,58 @@ export default function HomePage() {
             
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-black tracking-widest text-remax-red uppercase">
               <Sparkles className="w-4 h-4 text-remax-red" />
-              <span>Condomínio Blue — Capão da Canoa / Xangri-Lá</span>
+              <span>Radar Litoral RS — RE/MAX VIP</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-              Todas as Casas à Venda no <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-remax-red">Condomínio Blue</span>
+              Monitoramento Completo dos <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-remax-red">Condomínios de Luxo</span>
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
-              Consolidado oficial da <strong>RE/MAX VIP</strong>. Navegue pelas fotos em alta resolução de cada imóvel, confira o histórico de preços e acesse os links dos anúncios originais em todos os portais.
+              Plataforma comercial com banco de dados, histórico de variações de preço e automação de WebScraping nos portais imobiliários para <strong>Blue, Amare, Sunset, Ventura, Sea Coast, Celebration e Zen</strong> em Xangri-Lá e Capão da Canoa.
             </p>
 
-            {/* Quick Badges Bar */}
             <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold text-slate-300">
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Setas de troca de foto no card</span>
+                <span>7 Condomínios Mapeados</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Links diretos para ZAP, VivaReal, OLX & RE/MAX</span>
+                <span>Exportação para Excel (.xlsx / .csv)</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Histórico de redução de valores</span>
+                <span>Módulo de Inteligência Artificial</span>
               </div>
             </div>
 
           </div>
         </section>
 
-        {/* Market Analytics Section (Radar Litoral) */}
-        <MarketStats />
+        {/* Condo Selection Strip (Blue, Amare, Sunset, Ventura, Sea Coast, Celebration, Zen) */}
+        <CondoSelector
+          selectedCondo={selectedCondo}
+          onSelectCondo={(slug) => setSelectedCondo(slug)}
+          condoCounts={condoCounts}
+        />
 
-        {/* Filter and Search Controls */}
+        {/* Condo Market Stats Dashboard */}
+        <MarketStats selectedCondo={selectedCondo} />
+
+        {/* Radar AI Assistant Module */}
+        <RadarAIModule selectedCondo={selectedCondo} />
+
+        {/* Filter Controls & Excel Export Bar */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-4">
+          <h2 className="text-xl font-black text-remax-navy tracking-tight flex items-center gap-2">
+            <Building2 className="w-5 h-5 text-remax-red" />
+            <span>Casas Disponíveis ({filteredProperties.length})</span>
+          </h2>
+
+          <ExcelExportButton selectedCondo={selectedCondo} />
+        </div>
+
         <FilterBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -121,22 +159,6 @@ export default function HomePage() {
           resetFilters={resetFilters}
           totalResults={filteredProperties.length}
         />
-
-        {/* Property Grid Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-black text-remax-navy tracking-tight">
-              Imóveis Disponíveis no Blue
-            </h2>
-            <p className="text-xs text-slate-500 font-bold">
-              Utilize as setas dentro de cada card para alternar as fotos do imóvel.
-            </p>
-          </div>
-
-          <div className="text-xs font-black text-remax-red bg-remax-red/10 px-3 py-1.5 rounded-xl border border-remax-red/20">
-            {filteredProperties.length} imóveis encontrados
-          </div>
-        </div>
 
         {/* Property Cards Grid */}
         {filteredProperties.length > 0 ? (
@@ -155,13 +177,14 @@ export default function HomePage() {
             <Home className="w-12 h-12 text-slate-400 mx-auto mb-3" />
             <h3 className="text-lg font-black text-remax-navy">Nenhum imóvel encontrado</h3>
             <p className="text-xs text-slate-500 font-medium max-w-sm mx-auto mt-1 mb-4">
-              Não encontramos nenhuma casa no Condomínio Blue correspondente aos filtros selecionados.
+              Não encontramos casas correspondentes aos filtros selecionados neste condomínio.
             </p>
             <button
               onClick={resetFilters}
-              className="bg-remax-red text-white text-xs font-black px-5 py-2.5 rounded-xl hover:bg-remax-red-hover transition-colors shadow-sm"
+              className="bg-remax-red text-white text-xs font-black px-5 py-2.5 rounded-xl hover:bg-remax-red-hover transition-colors shadow-sm inline-flex items-center gap-1.5"
             >
-              Limpar Filtros de Busca
+              <RefreshCw className="w-4 h-4" />
+              <span>Limpar Filtros de Busca</span>
             </button>
           </div>
         )}
