@@ -1,41 +1,4 @@
-export interface PriceHistoryEntry {
-  date: string;
-  price: number;
-}
-
-export interface PortalLink {
-  name: string;
-  url: string;
-  iconName: 'zap' | 'vivareal' | 'olx' | 'remax' | 'imovelweb' | 'chavesnamao' | 'auxiliadora' | 'capaosul';
-  badgeColor?: string;
-}
-
-export interface Property {
-  id: string;
-  code: string;
-  title: string;
-  price: number;
-  originalPrice?: number;
-  pricePerM2: number;
-  area: number;
-  lotArea: number;
-  bedrooms: number;
-  suites: number;
-  bathrooms: number;
-  garages: number;
-  isLakefront: boolean;
-  isFurnished: boolean;
-  isNew: boolean;
-  hasPool: boolean;
-  status: 'disponivel' | 'preco_reduzido' | 'lancamento' | 'reservada';
-  description: string;
-  features: string[];
-  images: string[];
-  portalLinks: PortalLink[];
-  priceHistory: PriceHistoryEntry[];
-}
-
-export const BLUE_PROPERTIES: Property[] = [
+[
   {
     "id": "blue-real-101",
     "code": "CASA 10661",
@@ -480,18 +443,4 @@ export const BLUE_PROPERTIES: Property[] = [
       }
     ]
   }
-];
-
-export const CONDO_METRICS = {
-  totalHouses: 10,
-  availableHouses: 10,
-  avgPrice: 2228000,
-  avgPricePerM2: 9610,
-  maxPrice: 6300000,
-  minPrice: 790000,
-  newAnnouncements: 3,
-  priceDrops: 4,
-  condoName: "Condomínio Blue",
-  location: "Xangri-Lá & Capão da Canoa - RS",
-  brokerage: "RE/MAX VIP I"
-};
+]
