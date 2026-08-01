@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Casas à Venda no Condomínio Blue | RE/MAX VIP I",
-  description: "Portal exclusivo RE/MAX VIP com todas as casas à venda no Condomínio Blue em Xangri-Lá e Capão da Canoa. Galeria de fotos, histórico de preços e links de portais imobiliários.",
-  keywords: ["Condomínio Blue", "Casas à Venda Blue", "RE/MAX VIP", "Imóveis Xangri-Lá", "Imóveis Capão da Canoa", "Radar Litoral"],
-  authors: [{ name: "RE/MAX VIP I" }],
+  title: "Radar Litoral — RE/MAX VIP",
+  description: "Terminal de Inteligência e Monitoramento de Imóveis nos condomínios de luxo de Xangri-Lá e Capão da Canoa. Acesso exclusivo para corretores RE/MAX VIP.",
+  keywords: ["Radar Litoral", "RE/MAX VIP", "Condomínio Blue", "Condomínio Amare", "Condomínio Sunset", "Imóveis Xangri-Lá", "Capão da Canoa"],
+  icons: {
+    icon: "/LOGO-REMAX.jpeg",
+    shortcut: "/LOGO-REMAX.jpeg",
+    apple: "/LOGO-REMAX.jpeg",
+  },
   openGraph: {
-    title: "Casas à Venda no Condomínio Blue | RE/MAX VIP",
-    description: "Confira a lista atualizada de casas à venda no Condomínio Blue com comparativo de preços e galeria HD.",
+    title: "Radar Litoral — RE/MAX VIP",
+    description: "Terminal de Inteligência de Mercado nos Condomínios do Litoral Norte RS.",
     url: "https://lista.integramob.com.br",
-    siteName: "RE/MAX VIP Condomínio Blue",
+    siteName: "Radar Litoral RE/MAX VIP",
     locale: "pt_BR",
     type: "website",
   },
@@ -23,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-remax-red selection:text-white">
+      <head>
+        <link rel="icon" href="/LOGO-REMAX.jpeg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/LOGO-REMAX.jpeg" />
+      </head>
+      <body className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-remax-red selection:text-white">
         {children}
       </body>
     </html>
