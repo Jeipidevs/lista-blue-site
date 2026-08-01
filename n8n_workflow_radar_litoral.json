@@ -1,0 +1,105 @@
+{
+  "name": "Radar Litoral — Automação Diária de Scraping & Alertas",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24,
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-node",
+      "name": "Disparo Diário (07:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lista.integramob.com.br/api/scrape",
+        "options": {}
+      },
+      "id": "http-scrape-trigger",
+      "name": "Acionar Scraper Radar Litoral",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://evolution-api:8080/message/sendText/remax-vip-group",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "EVOLUTION_API_KEY_HERES"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"number\": \"51999999999\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
+        "options": {}
+      },
+      "id": "evolution-api-whatsapp-node",
+      "name": "Notificar WhatsApp Evolution API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Disparo Diário (07:00)": {
+      "main": [
+        [
+          {
+            "node": "Acionar Scraper Radar Litoral",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acionar Scraper Radar Litoral": {
+      "main": [
+        [
+          {
+            "node": "Notificar WhatsApp Evolution API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "meta": {
+    "templateId": "radar-litoral-remax-vip-cron"
+  }
+}
