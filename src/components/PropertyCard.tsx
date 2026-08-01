@@ -16,7 +16,8 @@ import {
   MapPin, 
   Waves,
   Eye,
-  MessageCircle
+  Copy,
+  Check
 } from "lucide-react";
 
 interface PropertyCardProps {
@@ -26,6 +27,7 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property, onSelectProperty }: PropertyCardProps) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   const prevImage = (e: MouseEvent) => {
     e.stopPropagation();
@@ -41,10 +43,20 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val);
   };
 
-  const whatsappMessage = encodeURIComponent(
-    `Olá! Tenho interesse no imóvel ${property.code} (${property.title}) no valor de ${formatMoney(property.price)} anunciado no portal lista.integramob.com.br`
-  );
-  const whatsappUrl = `https://wa.me/5551999999999?text=${whatsappMessage}`;
+  const copyForClient = (e: MouseEvent) => {
+    e.stopPropagation();
+    const text = `🏡 *${property.code} - ${property.condoName}*\n` +
+      `💰 *Valor:* ${formatMoney(property.price)} (${formatMoney(property.pricePerM2)}/m²)\n` +
+      `📐 *Área:* ${property.area}m² | *Suítes:* ${property.suites} | *Vagas:* ${property.garages}\n` +
+      `${property.isLakefront ? '🌊 *Beira Lago*\n' : ''}` +
+      `${property.isFurnished ? '✨ *Mobiliada e Decorada*\n' : ''}` +
+      `📌 *Anúncio Origem:* ${property.portalLinks[0]?.url || 'RE/MAX VIP'}\n\n` +
+      `Fale com a RE/MAX VIP para agendar visita!`;
+
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
 
   return (
     <div 
@@ -56,14 +68,20 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
       <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
         
         {/* Image */}
-        <Image
-          src={property.images[currentImgIndex]}
-          alt={property.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          priority={false}
-        />
+        {property.images[currentImgIndex] ? (
+          <Image
+            src={property.images[currentImgIndex]}
+            alt={property.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            priority={false}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-slate-800 text-slate-400 text-xs font-bold">
+            Sem Foto
+          </div>
+        )}
 
         {/* Gradient Overlay for Text Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
@@ -82,8 +100,8 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
             )}
 
             {property.status === 'preco_reduzido' && (
-              <span className="bg-remax-red text-white text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1 animate-pulse">
-                <TrendingDown className="w-3 h-3" /> Baixou o Preço
+              <span className="bg-remax-red text-white text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                <TrendingDown className="w-3 h-3" /> Baixou
               </span>
             )}
 
@@ -95,8 +113,8 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
           </div>
 
           {/* Photo Counter */}
-          <span className="bg-black/60 backdrop-blur-md text-white text-[11px] font-extrabold px-2.5 py-1 rounded-lg border border-white/20">
-            {currentImgIndex + 1} / {property.images.length}
+          <span className="bg-black/70 backdrop-blur-md text-white text-[11px] font-extrabold px-2.5 py-1 rounded-lg border border-white/20">
+            {currentImgIndex + 1} / {property.images.length || 1}
           </span>
         </div>
 
@@ -145,17 +163,17 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
           {/* Location & Title */}
           <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
             <MapPin className="w-3.5 h-3.5 text-remax-red" />
-            <span>Condomínio Blue • Xangri-Lá / Capão</span>
+            <span>{property.condoName || "Condomínio Blue"}</span>
           </div>
 
-          <h3 className="text-base sm:text-lg font-black text-remax-navy tracking-tight line-clamp-2 leading-snug group-hover:text-remax-red transition-colors">
+          <h3 className="text-base font-black text-remax-navy tracking-tight line-clamp-2 leading-snug group-hover:text-remax-red transition-colors">
             {property.title}
           </h3>
 
           {/* Pricing Row */}
           <div className="mt-3 flex items-baseline justify-between gap-2 pb-3 border-b border-slate-100">
             <div>
-              <div className="text-xl sm:text-2xl font-black text-remax-navy tracking-tight">
+              <div className="text-xl font-black text-remax-navy tracking-tight">
                 {formatMoney(property.price)}
               </div>
               {property.originalPrice && (
@@ -166,14 +184,14 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
             </div>
 
             <div className="text-right">
-              <span className="text-xs font-black text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+              <span className="text-xs font-black text-remax-red bg-remax-red/10 px-2.5 py-1 rounded-lg border border-remax-red/20">
                 {formatMoney(property.pricePerM2)} / m²
               </span>
             </div>
           </div>
 
-          {/* Property Features Grid */}
-          <div className="grid grid-cols-4 gap-2 my-3 py-2 bg-slate-50/80 rounded-2xl px-3 border border-slate-200/80">
+          {/* Property Specs Grid */}
+          <div className="grid grid-cols-4 gap-2 my-3 py-2 bg-slate-50 rounded-2xl px-3 border border-slate-200/80">
             <div className="flex flex-col items-center justify-center text-center">
               <Maximize2 className="w-4 h-4 text-remax-red mb-0.5" />
               <span className="text-xs font-black text-remax-navy">{property.area}m²</span>
@@ -197,48 +215,51 @@ export default function PropertyCard({ property, onSelectProperty }: PropertyCar
           </div>
 
           {/* External Listing Links Section */}
-          <div className="mt-3">
-            <div className="text-[10px] font-black uppercase text-slate-400 mb-1.5 tracking-wider">
-              Anunciado nos Portais:
+          {property.portalLinks && property.portalLinks.length > 0 && (
+            <div className="mt-3">
+              <div className="text-[10px] font-black uppercase text-slate-400 mb-1 tracking-wider">
+                Anúncio Ativo no Portal:
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {property.portalLinks.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 hover:bg-remax-red/10 text-[11px] font-black text-slate-700 hover:text-remax-red rounded-lg border border-slate-200 transition-colors"
+                  >
+                    <span>{link.name}</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5">
-              {property.portalLinks.map((link, i) => (
-                <a
-                  key={i}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-remax-red/10 text-[11px] font-black text-slate-700 hover:text-remax-red rounded-lg border border-slate-200 hover:border-remax-red/40 transition-colors shadow-2xs"
-                >
-                  <span>{link.name}</span>
-                  <ExternalLink className="w-2.5 h-2.5" />
-                </a>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
 
-        {/* Action Buttons Row */}
+        {/* Broker Operational Buttons Row */}
         <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
           <button
-            onClick={() => onSelectProperty(property)}
-            className="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-remax-navy text-xs font-black rounded-xl border border-slate-300 transition-colors flex items-center justify-center gap-1.5"
+            onClick={copyForClient}
+            className={`w-full py-2.5 px-3 rounded-xl border text-xs font-black transition-all flex items-center justify-center gap-1.5 ${
+              copied
+                ? "bg-emerald-600 text-white border-emerald-600"
+                : "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300"
+            }`}
           >
-            <Eye className="w-3.5 h-3.5 text-remax-navy" />
-            <span>Ver Detalhes</span>
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? "Copiado!" : "Copiar p/ Cliente"}</span>
           </button>
 
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="w-full py-2.5 px-3 bg-remax-red hover:bg-remax-red-hover text-white text-xs font-black rounded-xl border border-remax-red transition-all flex items-center justify-center gap-1.5 shadow-sm hover:shadow-red-glow"
+          <button
+            onClick={() => onSelectProperty(property)}
+            className="w-full py-2.5 px-3 bg-remax-navy hover:bg-slate-800 text-white text-xs font-black rounded-xl border border-remax-navy transition-all flex items-center justify-center gap-1.5 shadow-sm"
           >
-            <MessageCircle className="w-3.5 h-3.5 fill-white/20" />
-            <span>Tenho Interesse</span>
-          </a>
+            <Eye className="w-3.5 h-3.5" />
+            <span>Ficha Completa</span>
+          </button>
         </div>
 
       </div>
