@@ -1,9 +1,9 @@
 # Base stage
 FROM node:20-alpine AS base
+RUN apk add --no-cache libc6-compat openssl
 
 # Dependencies stage
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
@@ -21,8 +21,6 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV DATABASE_URL="file:./dev.db"
 
 RUN npx prisma generate
-RUN npx prisma db push
-RUN node prisma/seed.js
 RUN npm run build
 
 # Production Runner stage for EasyPanel VPS
