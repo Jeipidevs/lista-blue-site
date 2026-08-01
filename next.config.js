@@ -4,6 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compress: true,
+  experimental: {
+    serverComponentsExternalPackages: ['playwright-core'],
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
   },
