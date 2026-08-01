@@ -17,10 +17,7 @@
       "name": "Disparo Diário (07:00)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
-      "position": [
-        250,
-        300
-      ]
+      "position": [250, 300]
     },
     {
       "parameters": {
@@ -32,73 +29,116 @@
       "name": "Acionar Scraper Radar Litoral",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        480,
-        300
-      ]
+      "position": [480, 300]
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "http://evolution-api:8080/message/sendText/remax-vip-group",
+        "url": "https://sistemas-evolution-api.fs7nnf.easypanel.host/message/sendText/Vip-OS",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {
-              "name": "apikey",
-              "value": "EVOLUTION_API_KEY_HERES"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
+            { "name": "apikey", "value": "27CF3C444A29-4707-9EFC-C1EE62A2136C" },
+            { "name": "Content-Type", "value": "application/json" }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"number\": \"51999999999\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
+        "jsonBody": "{\n  \"number\": \"5551998196232\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
         "options": {}
       },
-      "id": "evolution-api-whatsapp-node",
-      "name": "Notificar WhatsApp Evolution API",
+      "id": "evolution-api-whatsapp-node-1",
+      "name": "Notificar WhatsApp 1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        720,
-        300
-      ]
+      "position": [720, 180]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sistemas-evolution-api.fs7nnf.easypanel.host/message/sendText/Vip-OS",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "27CF3C444A29-4707-9EFC-C1EE62A2136C" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"number\": \"5551985945354\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
+        "options": {}
+      },
+      "id": "evolution-api-whatsapp-node-2",
+      "name": "Notificar WhatsApp 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 260]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sistemas-evolution-api.fs7nnf.easypanel.host/message/sendText/Vip-OS",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "27CF3C444A29-4707-9EFC-C1EE62A2136C" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"number\": \"5551991911589\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
+        "options": {}
+      },
+      "id": "evolution-api-whatsapp-node-3",
+      "name": "Notificar WhatsApp 3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 340]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sistemas-evolution-api.fs7nnf.easypanel.host/message/sendText/Vip-OS",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "27CF3C444A29-4707-9EFC-C1EE62A2136C" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"number\": \"5551994996464\",\n  \"text\": \"🔄 *Radar Litoral — RE/MAX VIP*\\n\\nA varredura diária de imóveis nos 7 condomínios de luxo foi finalizada com sucesso!\\n\\n📊 Confira o estoque no painel: https://lista.integramob.com.br\"\n}",
+        "options": {}
+      },
+      "id": "evolution-api-whatsapp-node-4",
+      "name": "Notificar WhatsApp 4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 420]
     }
   ],
   "pinData": {},
   "connections": {
     "Disparo Diário (07:00)": {
-      "main": [
-        [
-          {
-            "node": "Acionar Scraper Radar Litoral",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Acionar Scraper Radar Litoral", "type": "main", "index": 0 }]]
     },
     "Acionar Scraper Radar Litoral": {
-      "main": [
-        [
-          {
-            "node": "Notificar WhatsApp Evolution API",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[
+        { "node": "Notificar WhatsApp 1", "type": "main", "index": 0 },
+        { "node": "Notificar WhatsApp 2", "type": "main", "index": 0 },
+        { "node": "Notificar WhatsApp 3", "type": "main", "index": 0 },
+        { "node": "Notificar WhatsApp 4", "type": "main", "index": 0 }
+      ]]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1.0.0",
+  "versionId": "1.1.0",
   "meta": {
     "templateId": "radar-litoral-remax-vip-cron"
   }
